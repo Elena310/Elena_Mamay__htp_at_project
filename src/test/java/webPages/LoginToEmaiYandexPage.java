@@ -27,6 +27,12 @@ public class LoginToEmaiYandexPage {
     @FindBy(xpath="//*[@type='submit']")
     private WebElement passwordSubmitButton;
 
+    @FindBy(xpath="//*[@class='mail-MessageSnippet-Wrapper'][1]")
+    private WebElement emailVerification;
+
+    @FindBy(xpath="//*[contains(@href, 'confirm_email')]")
+    private WebElement confirmationLink;
+
     public void openYandexPage(){
         driver.navigate().to("https://www.yandex.by");
     }
@@ -45,5 +51,10 @@ public class LoginToEmaiYandexPage {
         passwordInput.click();
         passwordInput.sendKeys(password);
         passwordSubmitButton.click();
+    }
+
+    public void verifyEmail(){
+        emailVerification.click();
+        confirmationLink.click();
     }
 }
