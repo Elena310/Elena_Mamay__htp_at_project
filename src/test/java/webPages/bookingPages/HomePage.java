@@ -1,4 +1,4 @@
-package webPages;
+package webPages.bookingPages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -48,6 +48,13 @@ public class HomePage {
 
     @FindBy(xpath="//button[@data-sb-id='main']")
     private WebElement priceChecking;
+
+    @FindBy(xpath="//*[@class='sign_in_wrapper']")
+    private WebElement registration;
+
+    public void chooseRegistration(){
+        registration.click();
+    }
 
     public void openHomePage(){
         driver.navigate().to("https://booking.com/");
@@ -112,7 +119,6 @@ public class HomePage {
         chooseNumberOfAdults();
         chooseNumberOfRooms();
         checkPrice();
-
     }
 
     public void chooseMoscowTrip(String nameOfCity, int arriving, int numberOfDays){
@@ -139,11 +145,6 @@ public class HomePage {
         chooseDetailsOfTheTrip();
         chooseNumberOfChildren();
         checkPrice();
-
     }
-
-
-
-
     }
 

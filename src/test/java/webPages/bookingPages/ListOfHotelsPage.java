@@ -1,4 +1,4 @@
-package webPages;
+package webPages.bookingPages;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -137,7 +137,7 @@ public class ListOfHotelsPage {
         getSortingStartWithLowCost();
         getExpensivePriceHotelDay();
         getRealPriceDayParisHotel();
-        TimeUnit.SECONDS.sleep(5);
+
     }
 
     public void checkMoscowPriceHotel() throws InterruptedException {
