@@ -1,4 +1,4 @@
-package tests;
+package tests.trashMail;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import webDriver.Config;
 import webDriver.Driver;
-import webPages.TrashMailRegistrationPage;
+import webPages.trashMailPages.TrashMailRegistrationPage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +21,7 @@ public class TrashmailRegistrationTest {
         trashMailRegistrationPage.openRegistration();
         trashMailRegistrationPage.setEmailWithValidAllFields("lex300", "muzprosvet",
                 "muzprosvet", "scotty_wehner71@0box.eu");
-        trashMailRegistrationPage.createRegistration();
+        trashMailRegistrationPage.submitRegistration();
         Assert.assertTrue("Registration is failed", trashMailRegistrationPage.successfullTextMessageIsDisplayed());
 
     }

@@ -1,10 +1,16 @@
-package webPages;
+package webPages.trashMailPages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import settings.MainSteps;
+
+import java.io.IOException;
+import java.util.Properties;
 
 public class TrashMailRegistrationPage {
+
+    public static String MYPATH = "/Users/natalliasamarava/Final/property.properties";
     private WebDriver driver;
 
     public TrashMailRegistrationPage(WebDriver driver) {
@@ -48,7 +54,7 @@ public class TrashMailRegistrationPage {
     @FindBy(xpath="//*[@id='tab-mob-manager']/form/div[4]/button")
     private WebElement loginButton;
 
-    public void OpenHomePage(){
+    public void openHomePage(){
         driver.navigate().to("https://trashmail.com");
     }
 
@@ -80,7 +86,7 @@ public class TrashMailRegistrationPage {
         return this;
     }
 
-    public void createRegistration(){
+    public void submitRegistration(){
         registrationButton.click();
     }
 
@@ -116,7 +122,29 @@ public class TrashMailRegistrationPage {
     public void loginToTrashmail(){
         loginButton.click();
     }
+
+
+    public void RegisterNewUser(){
+        openHomePage();
+        TrashMailRegistrationPage trashMailRegistrationPage = new TrashMailRegistrationPage(driver);
+        trashMailRegistrationPage.openRegistration();
+        trashMailRegistrationPage.setEmailWithValidAllFields("lex310", "muzprosvet",
+                "muzprosvet", "ElenaMamay310@yandex.by");
+        trashMailRegistrationPage.submitRegistration();
+
+    }
+
+    public void loginWithExistingUser() throws IOException {
+        Properties prop = MainSteps.getProperties("MYPATH");
+        openHomePage();
+        TrashMailRegistrationPage trashMailRegistrationPage = new TrashMailRegistrationPage(driver);
+        trashMailRegistrationPage.openLoginPage();
+        trashMailRegistrationPage.setExistingUserName(prop.getProperty("TRASHMAIL_USER"));
+        trashMailRegistrationPage.setExistingPassword(prop.getProperty("PASSWORD"));
+        trashMailRegistrationPage.loginToTrashmail();
+    }
 }
+
 
 
 
