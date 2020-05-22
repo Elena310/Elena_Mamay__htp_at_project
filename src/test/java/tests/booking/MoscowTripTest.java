@@ -1,12 +1,12 @@
-package tests;
+package tests.booking;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import webDriver.Config;
 import webDriver.Driver;
-import webPages.HomePage;
-import webPages.ListOfHotelsPage;
+import webPages.bookingPages.HomePage;
+import webPages.bookingPages.ListOfHotelsPage;
 import java.util.concurrent.TimeUnit;
 
 public class MoscowTripTest {

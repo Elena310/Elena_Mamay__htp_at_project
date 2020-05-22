@@ -15,12 +15,12 @@ import java.util.concurrent.TimeUnit;
 
 public class BookingRegistrationTest {
 
-    public static String PASSWORD_FIELD = "/Users/natalliasamarava/Final/property.properties";
+    public static String PATH = "/Users/natalliasamarava/Final/property.properties";
     WebDriver driver = Driver.getDriver(Config.CHROME);
 
     @Test
     public void registerBookingUser() throws InterruptedException, IOException {
-        Properties prop = MainSteps.getProperties(PASSWORD_FIELD);
+        Properties prop = MainSteps.getProperties(PATH);
 
         TrashmailManagerPage trashmailManagerPage = new TrashmailManagerPage(driver);
         trashmailManagerPage.createTempEmail();
