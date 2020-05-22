@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class TrashmailManagerPage {
 
-    public static String URL_PATH = "/Users/natalliasamarava/Final/property.properties";
+    public static String PATH = "/Users/natalliasamarava/Final/property.properties";
     private WebDriver driver;
 
     public TrashmailManagerPage(WebDriver driver) {
@@ -46,7 +46,7 @@ public class TrashmailManagerPage {
     }
 
     public String createTempEmail() throws InterruptedException, IOException {
-        Properties prop = MainSteps.getProperties("URL_PATH");
+        Properties prop = MainSteps.getProperties("PATH");
         TrashMailRegistrationPage trashMailRegistrationPage = new TrashMailRegistrationPage(driver);
         trashMailRegistrationPage.openHomePage();
         trashMailRegistrationPage.openLoginPage();
