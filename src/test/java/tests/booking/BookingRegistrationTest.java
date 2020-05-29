@@ -1,7 +1,7 @@
 package tests.booking;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Test;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import settings.MainSteps;
 import webDriver.Config;
@@ -14,9 +14,15 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class BookingRegistrationTest {
+    private static final Logger LOGGER = LogManager.getLogger(BookingRegistrationTest.class);
 
     public static String PATH = "/Users/natalliasamarava/Final/property.properties";
     WebDriver driver = Driver.getDriver(Config.CHROME);
+
+    @BeforeClass
+    public static void startTest() {
+        LOGGER.info("Test is started");
+    }
 
     @Test
     public void registerBookingUser() throws InterruptedException, IOException {
@@ -42,9 +48,13 @@ public class BookingRegistrationTest {
         Assert.assertEquals("Account is not created",true, bookingRegistrationPage.modalIsDisplayed());
     }
 
-    @After
-    public void close(){
-        driver.close();
-        driver.quit();
+    @AfterClass
+    public static void finishTest() {
+        LOGGER.info("Test is finished");
+    }
+
+    public static void closeDriver() {
+        Driver.getDriver(Config.CHROME).close();
+        Driver.getDriver(Config.CHROME).quit();
     }
 }

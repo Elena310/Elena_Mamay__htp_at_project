@@ -1,4 +1,6 @@
 package webPages.bookingPages;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -6,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import tests.booking.BookingRegistrationTest;
 
 
 import java.text.SimpleDateFormat;
@@ -13,6 +16,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class HomePage {
+
+    private static final Logger LOGGER = LogManager.getLogger(HomePage.class);
 
     private WebDriver driver;
     protected Actions action;
@@ -54,18 +59,23 @@ public class HomePage {
 
     public void chooseRegistration(){
         registration.click();
+        LOGGER.debug("Registration option is selected");
+
     }
 
     public void openHomePage(){
         driver.navigate().to("https://booking.com/");
+        LOGGER.debug("Home page is opened");
     }
 
     public void fillCityName(String s) {
         cityName.sendKeys(s);
+        LOGGER.debug("Name of city is selected");
     }
 
     public void openCalendar() {
         date.click();
+        LOGGER.debug("Calendar is opened");
     }
 
     public static String getDateOfArriving(int arriving){
@@ -73,7 +83,9 @@ public class HomePage {
         calendar.add(Calendar.DAY_OF_YEAR, arriving);
         Date date = calendar.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        LOGGER.debug("Date of arriving is selected");
         return dateFormat.format(date);
+
     }
 
     public static String getDateOfLeaving(int numberOfDays){
@@ -81,11 +93,13 @@ public class HomePage {
         calendar.add(Calendar.DAY_OF_YEAR, numberOfDays);
         Date date = calendar.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        LOGGER.debug("Date of leaving is selected");
         return dateFormat.format(date);
     }
 
     public void chooseDetailsOfTheTrip() {
         detailsOfTrip.click();
+        LOGGER.debug("Switched to details of the trip");
     }
 
     public void chooseNumberOfAdults() {
@@ -93,18 +107,22 @@ public class HomePage {
     }
     public void chooseNumberOfAdults2(){
         ((JavascriptExecutor)driver).executeScript("arguments[0].setAttribute('value', 8)", javascriptAdult);
+        LOGGER.debug("Number of adults is selected");
     }
 
     public void chooseNumberOfRooms() {
         room.click();
+        LOGGER.debug("Number of rooms is selected");
     }
 
     public void chooseNumberOfChildren(){
         child.click();
+        LOGGER.debug("Number of children is selected");
     }
 
     public void checkPrice(){
         priceChecking.click();
+        LOGGER.debug("Switched to price checking of hotels");
     }
 
     public void chooseParisTrip(String nameOfCity, int arriving, int numberOfDays){
@@ -119,6 +137,7 @@ public class HomePage {
         chooseNumberOfAdults();
         chooseNumberOfRooms();
         checkPrice();
+        LOGGER.debug("Parameters of the trip is selected");
     }
 
     public void chooseMoscowTrip(String nameOfCity, int arriving, int numberOfDays){
@@ -133,6 +152,7 @@ public class HomePage {
         action.doubleClick(adult).perform();
         action.click(room).perform();
         checkPrice();
+        LOGGER.debug("Parameters of the trip is selected");
     }
 
     public void chooseOsloTrip(String nameOfCity, int arriving, int numberOfDays){
@@ -145,6 +165,7 @@ public class HomePage {
         chooseDetailsOfTheTrip();
         chooseNumberOfChildren();
         checkPrice();
+        LOGGER.debug("Parameters of the trip is selected");
     }
     }
 

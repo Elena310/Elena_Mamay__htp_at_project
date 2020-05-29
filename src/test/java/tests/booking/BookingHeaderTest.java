@@ -1,5 +1,9 @@
 package tests.booking;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,9 +16,15 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class BookingHeaderTest {
+    private static final Logger LOGGER = LogManager.getLogger(BookingHeaderTest.class);
 
     public static String PATH = "/Users/natalliasamarava/Final/property.properties";
     WebDriver driver = Driver.getDriver(Config.CHROME);
+
+    @BeforeClass
+    public static void startTest() {
+        LOGGER.info("Test is started");
+    }
 
     @Test
     public  void isHeaderLoaded() throws IOException, InterruptedException {
@@ -43,9 +53,13 @@ public class BookingHeaderTest {
         boolean yourAccount = driver.findElement(By.xpath("//*[contains(@class, 'header_name')]")).isDisplayed();
     }
 
-    @After
-    public void close(){
-        driver.close();
-        driver.quit();
+    @AfterClass
+    public static void finishTest() {
+        LOGGER.info("Test is finished");
+    }
+
+    public static void closeDriver() {
+        Driver.getDriver(Config.CHROME).close();
+        Driver.getDriver(Config.CHROME).quit();
     }
 }

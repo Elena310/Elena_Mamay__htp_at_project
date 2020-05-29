@@ -1,10 +1,13 @@
 package webPages.bookingPages;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class HeaderPage {
+    private static final Logger LOGGER = LogManager.getLogger(HeaderPage.class);
     private WebDriver driver;
 
     public HeaderPage(WebDriver driver) {
