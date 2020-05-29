@@ -1,15 +1,20 @@
 package webPages.bookingPages;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import tests.booking.BookingHeaderTest;
 
 import java.util.concurrent.TimeUnit;
 
 public class ListOfHotelsPage {
+
+    private static final Logger LOGGER = LogManager.getLogger(ListOfHotelsPage.class);
 
     private WebDriver driver;
     protected Actions action;
@@ -53,66 +58,76 @@ public class ListOfHotelsPage {
 
     public void chooseMaxPriceHotel() {
         maxPriceHotel.click();
+        LOGGER.debug("Hotels with max price are selected");
     }
 
     public void chooseMinPriceHotel() {
         minPriceHotel.click();
+        LOGGER.debug("Hotels with min price are selected");
     }
 
     public void getSortingStartWithLowCost() throws InterruptedException {
         sortingStartWithLowCost.click();
+        LOGGER.debug("Sorting with low cost is selected");
 
     }
 
     public void choose3starsHotel() {
         stars3Hotel.click();
+        LOGGER.debug("3 stars hotels are selected");
     }
 
     public void choose4starsHotel() {
         stars4Hotel.click();
+        LOGGER.debug("4 stars hotels are selected");
     }
 
     public void scrollByTheTenthHotel() {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", tenthHotel);
+        LOGGER.debug("Page scrolled to tenth hotel");
     }
 
     public int getExpensivePriceHotelDay() throws InterruptedException {
         String exphot = maxPriceHotel.getText();
-        System.out.println(exphot);
+        LOGGER.info(exphot);
         exphot = exphot.replaceAll("[^0-9]+", "");
         int priceHotelDay = Integer.parseInt(exphot);
-        System.out.println(priceHotelDay);
+        LOGGER.info(priceHotelDay);
+        LOGGER.debug("Price of hotel is displayed");
         return (priceHotelDay);
     }
 
     public int getCheapPriceHotelDay() throws InterruptedException {
         chooseMinPriceHotel();
         String cheaphot = minPriceHotel.getText();
-        System.out.println(cheaphot);
+        LOGGER.info(cheaphot);
         cheaphot = cheaphot.replaceAll("[^0-9]+", "");
         int priceHotelDay = Integer.parseInt(cheaphot);
-        System.out.println(priceHotelDay);
+        LOGGER.info(priceHotelDay);
+        LOGGER.debug("Price of hotel is displayed");
         return priceHotelDay;
     }
 
     public int getRealPriceDayParisHotel() {
         String priceTextFinal = realPriceDay.getText();
-        System.out.println(priceTextFinal);
+        LOGGER.info(priceTextFinal);
         priceTextFinal = priceTextFinal.replaceAll("[^0-9]+", "");
         int priceHotel = Integer.parseInt(priceTextFinal);
         int priceDay = priceHotel / 7;
-        System.out.println(priceDay);
+        LOGGER.info(priceDay);
+        LOGGER.debug("Daily price hotel is displayed ");
         return priceDay;
     }
 
 
     public int getRealPriceDayMoscowHotel() {
         String priceTextFinal = realPriceDay.getText();
-        System.out.println(priceTextFinal);
+        LOGGER.info(priceTextFinal);
         priceTextFinal = priceTextFinal.replaceAll("[^0-9]+", "");
         int priceHotel = Integer.parseInt(priceTextFinal);
         int priceDay = priceHotel / 5;
-        System.out.println(priceDay);
+        LOGGER.info(priceDay);
+        LOGGER.debug("Daily price hotel is displayed ");
         return priceDay;
     }
 
@@ -120,16 +135,19 @@ public class ListOfHotelsPage {
         Actions actions = new Actions(driver);
         actions.moveToElement(addressOfTenthHotel).build().perform();
         TimeUnit.SECONDS.sleep(5);
+        LOGGER.debug("Cursor is moved to element ");
     }
 
     public void changeBackgroundColor() throws InterruptedException {
         ((JavascriptExecutor) driver).executeScript("arguments[0].style.backgroundColor='green'", addressOfTenthHotel);
         TimeUnit.SECONDS.sleep(5);
+        LOGGER.debug("Background color is changed to green");
     }
 
     public void changeTextColor() throws InterruptedException {
         ((JavascriptExecutor) driver).executeScript("arguments[0].style.color='red'", addressOfTenthHotel);
         TimeUnit.SECONDS.sleep(5);
+        LOGGER.debug("Text color is changed to red");
     }
 
     public void checkParisPriceHotel() throws InterruptedException {
@@ -137,6 +155,7 @@ public class ListOfHotelsPage {
         getSortingStartWithLowCost();
         getExpensivePriceHotelDay();
         getRealPriceDayParisHotel();
+        LOGGER.debug("Real price day of hotel >= price of expensive hotel");
 
     }
 
@@ -144,6 +163,7 @@ public class ListOfHotelsPage {
         chooseMinPriceHotel();
         getCheapPriceHotelDay();
         getRealPriceDayMoscowHotel();
+        LOGGER.debug("Real price day of hotel <= price of cheap hotel");
     }
 
     public void checkChangesInStyleOfAddressHotel() throws InterruptedException {
@@ -153,9 +173,11 @@ public class ListOfHotelsPage {
         moveCursorToElement();
         changeBackgroundColor();
         changeTextColor();
+        LOGGER.debug("Text color and background color are changed");
     }
 
     public String getTextColor() {
         return addressOfTenthHotel.getCssValue("color");
+
     }
 }

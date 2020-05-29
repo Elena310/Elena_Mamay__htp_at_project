@@ -1,4 +1,6 @@
 package tests.booking;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import webDriver.Config;
@@ -8,9 +10,15 @@ import webPages.bookingPages.ListOfHotelsPage;
 import java.util.concurrent.TimeUnit;
 
 public class ParisTripTest {
+    private static final Logger LOGGER = LogManager.getLogger(ParisTripTest.class);
 
     WebDriver driver = Driver.getDriver(Config.CHROME);
     ListOfHotelsPage listOfHotelsPage = new ListOfHotelsPage(driver);
+
+    @BeforeClass
+    public static void startTest() {
+        LOGGER.info("Test is started");
+    }
 
     @Test
     public void verifyPriceParisTrip() throws InterruptedException {
@@ -26,9 +34,16 @@ public class ParisTripTest {
                 listOfHotelsPage.getRealPriceDayParisHotel() >= listOfHotelsPage.getExpensivePriceHotelDay() );
 
     }
-    @After
-    public void close(){
-        driver.close();
-        driver.quit();
+    @AfterClass
+
+    public void finishTest() {
+        LOGGER.info("Test is finished");
     }
+    public  void closeDriver() {
+        Driver.getDriver(Config.CHROME).close();
+        Driver.getDriver(Config.CHROME).quit();
+    }
+
+
+
 }
