@@ -4,14 +4,13 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import webDriver.Config;
-import webDriver.Driver;
-import webPages.trashMailPages.TrashMailRegistrationPage;
+import web_driver.Driver;
+import web_pages.trashmail_pages.TrashMailRegistrationPage;
 
 import java.util.concurrent.TimeUnit;
 
 public class TrashmailRegistrationTest {
-    WebDriver driver = Driver.getDriver(Config.CHROME);
+    WebDriver driver = Driver.getDriver();
     TrashMailRegistrationPage trashMailRegistrationPage = new TrashMailRegistrationPage(driver);
 
     @Test
