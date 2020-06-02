@@ -3,13 +3,12 @@ package tests.trashMail;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import webDriver.Config;
-import webDriver.Driver;
-import webPages.yandexPages.LoginToEmaiYandexPage;
+import web_driver.Driver;
+import web_pages.yandex_pages.LoginToEmaiYandexPage;
 import java.io.IOException;
 
 public class EmailVerificationTest {
-    WebDriver driver = Driver.getDriver(Config.CHROME);
+    WebDriver driver = Driver.getDriver();
 
     @Test
     public void verifyEmail() throws InterruptedException, IOException {
@@ -18,8 +17,7 @@ public class EmailVerificationTest {
     }
 
     @After
-    public void close(){
-        driver.close();
-        driver.quit();
+    public void closeDriver(){
+        Driver.closeDriver();
     }
 }

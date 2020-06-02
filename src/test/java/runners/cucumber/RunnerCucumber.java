@@ -1,0 +1,21 @@
+package runners.cucumber;
+import cucumber.api.CucumberOptions;
+import cucumber.api.SnippetType;
+import cucumber.api.junit.Cucumber;
+import org.junit.runner.RunWith;
+
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+        plugin = {"pretty"},
+        glue = {"tests.cucumber_booking"},
+        features = {
+                "src/test/resources/features/BookingRegistrationWithTempEmailTest.feature",
+
+        },
+       // monochrome = true,
+        strict = false)
+
+public class RunnerCucumber {
+
+}

@@ -3,21 +3,20 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
-import settings.MainSteps;
-import webDriver.Config;
-import webDriver.Driver;
-import webPages.bookingPages.BookingRegistrationPage;
-import webPages.bookingPages.HomePage;
-import webPages.trashMailPages.TrashmailManagerPage;
+import utilites.PtopertiesReader;
+import web_driver.Driver;
+import web_pages.booking_pages.BookingRegistrationPage;
+import web_pages.booking_pages.HomePage;
+import web_pages.trashmail_pages.TrashmailManagerPage;
+
 import java.io.IOException;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class BookingRegistrationTest {
     private static final Logger LOGGER = LogManager.getLogger(BookingRegistrationTest.class);
 
-    public static String PATH = "/Users/natalliasamarava/Final/property.properties";
-    WebDriver driver = Driver.getDriver(Config.CHROME);
+    public static String PATH = "/Users/natalliasamarava/Final/main.properties";
+    WebDriver driver = Driver.getDriver();
 
     @BeforeClass
     public static void startTest() {
@@ -26,35 +25,30 @@ public class BookingRegistrationTest {
 
     @Test
     public void registerBookingUser() throws InterruptedException, IOException {
-        Properties prop = MainSteps.getProperties(PATH);
-
         TrashmailManagerPage trashmailManagerPage = new TrashmailManagerPage(driver);
         trashmailManagerPage.createTempEmail();
         String emailAddress = trashmailManagerPage.getTrashEmailAddress();
-        driver.navigate().to("https://booking.com/");
+        HomePage homePage = new HomePage(driver);
+        homePage.openHomePage();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         TimeUnit.SECONDS.sleep(5);
-        HomePage homePage = new HomePage(driver);
         homePage.chooseRegistration();
         BookingRegistrationPage bookingRegistrationPage = new BookingRegistrationPage(driver);
         bookingRegistrationPage.setEmailInput(emailAddress);
         TimeUnit.SECONDS.sleep(3);
-        bookingRegistrationPage.setPasswordInput(prop.getProperty("PASSWORD"));
-        bookingRegistrationPage.setConfirmedPasswordInput(prop.getProperty("PASSWORD"));
+        bookingRegistrationPage.setPasswordInput(PtopertiesReader.getValueProperty("PASSWORD", PATH));
+        TimeUnit.SECONDS.sleep(3);
+        bookingRegistrationPage.setConfirmedPasswordInput(PtopertiesReader.getValueProperty("PASSWORD", PATH));
         bookingRegistrationPage.createAccount();
         TimeUnit.SECONDS.sleep(5);
         bookingRegistrationPage.modalIsDisplayed();
+
         Assert.assertEquals("Account is not created",true, bookingRegistrationPage.modalIsDisplayed());
     }
 
     @AfterClass
-    public static void finishTest() {
-        LOGGER.info("Test is finished");
-    }
-
     public static void closeDriver() {
-        Driver.getDriver(Config.CHROME).close();
-        Driver.getDriver(Config.CHROME).quit();
+        Driver.closeDriver();
     }
 }
